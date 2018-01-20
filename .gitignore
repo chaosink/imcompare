@@ -30,3 +30,15 @@
 *.exe
 *.out
 *.app
+
+# Qt
+/src/imcompare.pro.user
+
+# Build
+/build*
+
+# Images
+/image
+
+# Themes
+/theme

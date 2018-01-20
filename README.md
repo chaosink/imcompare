@@ -1,2 +1,3 @@
-# imcompare
-Image local comparison.
+# ImCompare
+
+Compare images locally.
