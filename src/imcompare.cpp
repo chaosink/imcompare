@@ -3,11 +3,8 @@
 #include "mouselabel.h"
 
 #include <QMimeData>
-#include <QFile>
-#include <QUrl>
-#include <QLabel>
-#include <QTextStream>
 #include <QDebug>
+#include <QDateTime>
 
 ImCompare::ImCompare(QWidget *parent) :
 	QMainWindow(parent),
@@ -24,6 +21,22 @@ ImCompare::ImCompare(QWidget *parent) :
 	ui->label_5->setPixmap(QPixmap::fromImage(*image_refenence));
 	QImage *image_input = new QImage("image/input.png");
 	ui->label_6->setPixmap(QPixmap::fromImage(*image_input));
+}
+
+void ImCompare::keyPressEvent(QKeyEvent *event) {
+	QDateTime now = QDateTime::currentDateTime();
+	QString s = now.toString("yyyy-MM-dd_HH-mm-ss");
+	QString file;
+	for(int i = 0; i < 100; ++i) {
+		file = s + QString("_%2").arg(i, 2, 10, QLatin1Char('0')) + ".png";
+		if(!QFile::exists(file)) break;
+	}
+
+	if(event->key() == Qt::Key_S) {
+		QPixmap result = this->grab();
+		result = result.copy(0, result.height() - ui->widget->height() - 6, result.width(), ui->widget->height() + 6);
+		result.save(file);
+	}
 }
 
 void ImCompare::SetTheme(QString theme) {

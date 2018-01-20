@@ -20,6 +20,7 @@ public:
 protected:
 	void dragEnterEvent(QDragEnterEvent *event);
 	void dropEvent(QDropEvent *event);
+	void keyPressEvent(QKeyEvent *event);
 
 private slots:
 	void OnMouseUpdated(int x, int y);
