@@ -1,0 +1,2 @@
+# imcompare
+Image local comparison.
