@@ -3,16 +3,20 @@
 
 #include <QWidget>
 #include <QLabel>
+#include <QVBoxLayout>
 
 class ImageBlock: public QWidget {
 	Q_OBJECT
 
-	QWidget *widget;
-	QLabel *label;
+	QLabel *textLabel;
+	QLabel *imageLabel;
+	QVBoxLayout *verticalLayout;
 
 public:
 	explicit ImageBlock(QWidget* parent = Q_NULLPTR, Qt::WindowFlags f = Qt::WindowFlags());
 	~ImageBlock();
+	void SetPixmap(QPixmap &pixmap);
+	void SetTitle(const QString &title);
 };
 
 #endif // IMAGEBLOCK_H

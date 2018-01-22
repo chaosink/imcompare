@@ -1,48 +1,46 @@
 #include "imcompare.h"
 #include "ui_imcompare.h"
 #include "mouselabel.h"
-#include "imagetab.h"
-#include "imageblock.h"
-
+#include <cassert>
 #include <QMimeData>
 #include <QDebug>
 #include <QDateTime>
+#include <QFileInfo>
 
-ImCompare::ImCompare(QWidget *parent) :
-	QMainWindow(parent),
-	ui(new Ui::ImCompare)
-{
+ImCompare::ImCompare(QWidget *parent)
+	: QMainWindow(parent), ui(new Ui::ImCompare) {
 	ui->setupUi(this);
 	// dark, light, obs-Dark, obs-Default, QDark, Rachni, Tungsten
 	// SetTheme("Rachni");
 
-	connect(ui->label_5, SIGNAL(Updated(int, int)), this, SLOT(OnMouseUpdated(int, int)));
-	connect(ui->label_6, SIGNAL(Updated(int, int)), this, SLOT(OnMouseUpdated(int, int)));
+	connect(ui->imageTabWidget->tabBar(), SIGNAL(tabMoved(int, int)), this, SLOT(OnTabMoved()));
+	connect(ui->imageTabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(OnTabClosed(int)));
+}
 
-	QImage *image_refenence = new QImage("image/reference.png");
-	ui->label_5->setPixmap(QPixmap::fromImage(*image_refenence));
-	QImage *image_input = new QImage("image/input.png");
-	ui->label_6->setPixmap(QPixmap::fromImage(*image_input));
+void ImCompare::OnTabMoved() {
+	UpdateImageBlock(x_last, y_last);
+}
 
-	ImageTab *imageTab = new ImageTab();
-//	ImageBlock *imageBlock = new ImageBlock();
-	ui->tabWidget->addTab(imageTab, QString());
-	ui->tabWidget->setTabText(ui->tabWidget->indexOf(imageTab), QApplication::translate("ImCompare", "Other", nullptr));
+void ImCompare::OnTabClosed(int index) {
+	ui->imageTabWidget->removeTab(index);
+	auto layout = ui->horizontalLayoutOfImageBlockWidget;
+	ImageBlock *imageBlock = dynamic_cast<ImageBlock*>(layout->itemAt(index)->widget());
+	imageBlock->setParent(nullptr);
 }
 
 void ImCompare::keyPressEvent(QKeyEvent *event) {
 	QDateTime now = QDateTime::currentDateTime();
 	QString s = now.toString("yyyy-MM-dd_HH-mm-ss");
-	QString file;
+	QString file_name;
 	for(int i = 0; i < 100; ++i) {
-		file = s + QString("_%2").arg(i, 2, 10, QLatin1Char('0')) + ".png";
-		if(!QFile::exists(file)) break;
+		file_name = s + QString("_%2").arg(i, 2, 10, QLatin1Char('0')) + ".png";
+		if(!QFile::exists(file_name)) break;
 	}
 
 	if(event->key() == Qt::Key_S) {
 		QPixmap result = this->grab();
-		result = result.copy(0, result.height() - ui->widget->height() - 6, result.width(), ui->widget->height() + 6);
-		result.save(file);
+		result = result.copy(0, result.height() - ui->imageBlockWidget->height() - 6, (ui->horizontalLayoutOfImageBlockWidget->count() - 1) * (256 + 2) + 4 * 2 - 2 , ui->imageBlockWidget->height() + 6);
+		result.save(file_name);
 	}
 }
 
@@ -63,45 +61,54 @@ ImCompare::~ImCompare()
 	delete ui;
 }
 
-//当用户拖动文件到窗口部件上时候，就会触发dragEnterEvent事件
-void ImCompare::dragEnterEvent(QDragEnterEvent *event)
-{
-	//如果为文件，则支持拖放
+void ImCompare::AddImageTab(QString title, QImage *image) {
+	ImageTab *tab = new ImageTab(image);
+	connect(tab->mouseLabel, SIGNAL(Updated(int, int)), this, SLOT(UpdateImageBlock(int, int)));
+	ui->imageTabWidget->insertTab(ui->imageTabWidget->currentIndex() + 1, tab, QString());
+	ui->imageTabWidget->setTabText(ui->imageTabWidget->indexOf(tab), title);
+	ui->imageTabWidget->setCurrentWidget(tab);
+}
+
+void ImCompare::AddImageBlock() {
+	ImageBlock *block = new ImageBlock(ui->imageBlockWidget);
+	ui->horizontalLayoutOfImageBlockWidget->insertWidget(0, block);
+	block->SetTitle("test");
+}
+
+void ImCompare::dragEnterEvent(QDragEnterEvent *event) {
 	if (event->mimeData()->hasFormat("text/uri-list"))
 		event->acceptProposedAction();
 }
 
-//当用户放下这个文件后，就会触发dropEvent事件
-void ImCompare::dropEvent(QDropEvent *event)
-{
-	//注意：这里如果有多文件存在，意思是用户一下子拖动了多个文件，而不是拖动一个目录
-	//如果想读取整个目录，则在不同的操作平台下，自己编写函数实现读取整个目录文件名
+void ImCompare::dropEvent(QDropEvent *event) {
 	QList<QUrl> urls = event->mimeData()->urls();
 	if(urls.isEmpty())
 		return;
 
-	//往文本框中追加文件名
 	foreach(QUrl url, urls) {
 		QString file_name = url.toLocalFile();
 		QImage *image = new QImage(file_name);
-		ui->label_5->setPixmap(QPixmap::fromImage(*image));
-
-		qDebug() << file_name;
+		if(image->isNull()) continue;
+		AddImageBlock();
+		AddImageTab(QFileInfo(file_name).baseName(), image);
 	}
+	UpdateImageBlock(x_last, y_last);
 }
 
-void ImCompare::OnMouseUpdated(int x, int y) {
+void ImCompare::UpdateImageBlock(int x, int y) {
 	int local_size = 256;
 
-	int x_image = qBound(local_size / 4, x, ui->label_5->pixmap()->width() - local_size / 4);
-	int y_image = qBound(local_size / 4, y, ui->label_5->pixmap()->height() - local_size / 4);
-	QPixmap local_image_reference = ui->label_5->pixmap()->copy(x_image - local_size / 4, y_image - local_size / 4, local_size / 2, local_size / 2);
-	local_image_reference = local_image_reference.scaled(local_size, local_size);
-	ui->label->setPixmap(local_image_reference);
-
-	x_image = qBound(local_size / 4, x, ui->label_6->pixmap()->width() - local_size / 4);
-	y_image = qBound(local_size / 4, y, ui->label_6->pixmap()->height() - local_size / 4);
-	QPixmap local_image_input = ui->label_6->pixmap()->copy(x_image - local_size / 4, y_image - local_size / 4, local_size / 2, local_size / 2);
-	local_image_input = local_image_input.scaled(local_size, local_size);
-	ui->label_3->setPixmap(local_image_input);
+	auto tabWidget = ui->imageTabWidget;
+	for(int i = 0; i < tabWidget->count(); ++i) {
+		const QPixmap *pixmap = dynamic_cast<ImageTab*>(tabWidget->widget(i))->mouseLabel->pixmap();
+		int x_image = qBound(local_size / 4, x, pixmap->width() - local_size / 4);
+		int y_image = qBound(local_size / 4, y, pixmap->height() - local_size / 4);
+		QPixmap image_block = pixmap->copy(x_image - local_size / 4, y_image - local_size / 4, local_size / 2, local_size / 2);
+		image_block = image_block.scaled(local_size, local_size);
+		ImageBlock *block = dynamic_cast<ImageBlock*>(ui->horizontalLayoutOfImageBlockWidget->itemAt(i)->widget());
+		block->SetPixmap(image_block);
+		block->SetTitle(tabWidget->tabText(i));
+	}
+	x_last = x;
+	y_last = y;
 }
