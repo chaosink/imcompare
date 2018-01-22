@@ -44,5 +44,5 @@
 /theme
 
 # Results
-/result/video/
+/result/video/*
 !/result/video/video_512x342.gif
