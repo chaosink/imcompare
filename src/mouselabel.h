@@ -4,8 +4,7 @@
 #include <QLabel>
 #include <QInputEvent>
 
-class MouseLabel: public QLabel
-{
+class MouseLabel: public QLabel {
 	Q_OBJECT
 
 public:

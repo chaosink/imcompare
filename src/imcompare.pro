@@ -26,11 +26,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
 	main.cpp \
 	imcompare.cpp \
-	mouselabel.cpp
+	mouselabel.cpp \
+	imagetab.cpp \
+	imageblock.cpp
 
 HEADERS += \
 	imcompare.h \
-	mouselabel.h
+	mouselabel.h \
+	imagetab.h \
+	imageblock.h
 
 FORMS += \
 	imcompare.ui

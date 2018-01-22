@@ -1,6 +1,8 @@
 #include "imcompare.h"
 #include "ui_imcompare.h"
 #include "mouselabel.h"
+#include "imagetab.h"
+#include "imageblock.h"
 
 #include <QMimeData>
 #include <QDebug>
@@ -21,6 +23,11 @@ ImCompare::ImCompare(QWidget *parent) :
 	ui->label_5->setPixmap(QPixmap::fromImage(*image_refenence));
 	QImage *image_input = new QImage("image/input.png");
 	ui->label_6->setPixmap(QPixmap::fromImage(*image_input));
+
+	ImageTab *imageTab = new ImageTab();
+//	ImageBlock *imageBlock = new ImageBlock();
+	ui->tabWidget->addTab(imageTab, QString());
+	ui->tabWidget->setTabText(ui->tabWidget->indexOf(imageTab), QApplication::translate("ImCompare", "Other", nullptr));
 }
 
 void ImCompare::keyPressEvent(QKeyEvent *event) {

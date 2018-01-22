@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>938</width>
-    <height>722</height>
+    <width>524</width>
+    <height>461</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -77,8 +77,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>928</width>
-             <height>387</height>
+             <width>514</width>
+             <height>126</height>
             </rect>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -149,8 +149,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>928</width>
-             <height>387</height>
+             <width>514</width>
+             <height>126</height>
             </rect>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -195,12 +195,6 @@
     </item>
     <item>
      <widget class="QWidget" name="widget" native="true">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>200</height>
-       </size>
-      </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <property name="spacing">
         <number>2</number>
@@ -340,7 +334,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>938</width>
+     <width>524</width>
      <height>19</height>
     </rect>
    </property>
