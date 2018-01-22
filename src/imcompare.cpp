@@ -7,8 +7,7 @@
 #include <QDateTime>
 #include <QFileInfo>
 
-ImCompare::ImCompare(QWidget *parent)
-	: QMainWindow(parent), ui(new Ui::ImCompare) {
+ImCompare::ImCompare(QWidget *parent) : QMainWindow(parent), ui(new Ui::ImCompare) {
 	ui->setupUi(this);
 	// dark, light, obs-Dark, obs-Default, QDark, Rachni, Tungsten
 	// SetTheme("Rachni");
@@ -26,6 +25,11 @@ void ImCompare::OnTabClosed(int index) {
 	auto layout = ui->horizontalLayoutOfImageBlockWidget;
 	ImageBlock *imageBlock = dynamic_cast<ImageBlock*>(layout->itemAt(index)->widget());
 	imageBlock->setParent(nullptr);
+
+	if(ui->imageTabWidget->count() == 0) {
+		ui->usageLabel->setVisible(true);
+		ui->imageTabWidget->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
+	}
 }
 
 void ImCompare::keyPressEvent(QKeyEvent *event) {
@@ -33,14 +37,18 @@ void ImCompare::keyPressEvent(QKeyEvent *event) {
 	QString s = now.toString("yyyy-MM-dd_HH-mm-ss");
 	QString file_name;
 	for(int i = 0; i < 100; ++i) {
-		file_name = s + QString("_%2").arg(i, 2, 10, QLatin1Char('0')) + ".png";
+		file_name = s + QString("_%2").arg(i, 2, 10, QLatin1Char('0'));
 		if(!QFile::exists(file_name)) break;
 	}
 
 	if(event->key() == Qt::Key_S) {
 		QPixmap result = this->grab();
 		result = result.copy(0, result.height() - ui->imageBlockWidget->height() - 6, (ui->horizontalLayoutOfImageBlockWidget->count() - 1) * (256 + 2) + 4 * 2 - 2 , ui->imageBlockWidget->height() + 6);
-		result.save(file_name);
+		result.save(file_name + ".png");
+		for(int i = 0; i < ui->imageTabWidget->count(); ++i) {
+			ImageBlock *block = dynamic_cast<ImageBlock*>(ui->horizontalLayoutOfImageBlockWidget->itemAt(i)->widget());
+			block->GetPixmap()->save(file_name + "_" + block->GetTitle() + ".png");
+		}
 	}
 }
 
@@ -56,8 +64,7 @@ void ImCompare::SetTheme(QString theme) {
 		qWarning() << "Failed to load style sheet file\n";
 }
 
-ImCompare::~ImCompare()
-{
+ImCompare::~ImCompare() {
 	delete ui;
 }
 
@@ -81,6 +88,11 @@ void ImCompare::dragEnterEvent(QDragEnterEvent *event) {
 }
 
 void ImCompare::dropEvent(QDropEvent *event) {
+	if(ui->imageTabWidget->count() == 0) {
+		ui->usageLabel->setVisible(false);
+		ui->imageTabWidget->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
+	}
+
 	QList<QUrl> urls = event->mimeData()->urls();
 	if(urls.isEmpty())
 		return;

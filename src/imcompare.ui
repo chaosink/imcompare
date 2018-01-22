@@ -34,7 +34,33 @@
      <number>4</number>
     </property>
     <item>
+     <widget class="QLabel" name="usageLabel">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>&lt;div style=&quot;font-size:18px&quot;&gt;&lt;p&gt;Drag in image files directly.&lt;/p&gt;&lt;p&gt;Image tabs can be moved and reordered.&lt;/p&gt;&lt;p&gt;Press key &lt;font style=&quot;color:#f00&quot;&gt;S&lt;/font&gt; to save local comparison results.&lt;/p&gt;&lt;p&gt;Still in developing...&lt;/p&gt;&lt;/div&gt;
+</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QTabWidget" name="imageTabWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="currentIndex">
        <number>-1</number>
       </property>
@@ -51,6 +77,12 @@
     </item>
     <item>
      <widget class="QWidget" name="imageBlockWidget" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <layout class="QHBoxLayout" name="horizontalLayoutOfImageBlockWidget">
        <property name="spacing">
         <number>2</number>
@@ -91,7 +123,7 @@
      <x>0</x>
      <y>0</y>
      <width>522</width>
-     <height>19</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMenu">

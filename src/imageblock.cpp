@@ -26,6 +26,14 @@ void ImageBlock::SetPixmap(QPixmap &pixmap) {
 	imageLabel->setPixmap(pixmap);
 }
 
+const QPixmap* ImageBlock::GetPixmap() {
+	return imageLabel->pixmap();
+}
+
 void ImageBlock::SetTitle(const QString &title) {
 	textLabel->setText(title);
+}
+
+QString ImageBlock::GetTitle() {
+	return textLabel->text();
 }

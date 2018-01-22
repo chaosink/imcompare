@@ -11,8 +11,7 @@ namespace Ui {
 class ImCompare;
 }
 
-class ImCompare : public QMainWindow
-{
+class ImCompare : public QMainWindow {
 	Q_OBJECT
 
 	int x_last = 0, y_last = 0;
