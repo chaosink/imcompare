@@ -22,10 +22,6 @@ Compare images locally.
 
 ![input.png](./result/image/input.png)
 
-![wlr.png](./result/image/wlr.png)
-
-![lbf.png](./result/image/lbf.png)
-
 ![reference.png](./result/image/reference.png)
 
 * Still in developing...
