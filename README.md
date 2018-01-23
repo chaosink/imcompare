@@ -4,13 +4,13 @@ Compare images locally.
 
 - - -
 
-![1](./result/video/video_512x342.gif)
+![1](./result/video/video.gif)
 
-* Inittial window with instructions.
+* Initial window with instructions.
 
 ![init.png](./result/image/init.png)
 
-* Drag in file images directly. Move mouse cursor on images.
+* Drag in file images directly. Move mouse cursor on images to compare local blocks of the same position.
 
 ![compare.png](./result/image/compare.png)
 
