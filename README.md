@@ -10,7 +10,7 @@ Compare images locally.
 
 ![init.png](./result/image/init.png)
 
-* Drag in image files directly. Move mouse cursor on images to compare local blocks of the same position.
+* Drag in image files directly. Move mouse cursor on images to compare local blocks at the same position.
 
 ![compare.png](./result/image/compare.png)
 
