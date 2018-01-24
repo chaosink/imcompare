@@ -15,8 +15,8 @@ Compare images locally.
 ![compare.png](./result/image/compare.png)
 
 * Press key `S` to save local comparison results.
-	* A composite image file of all local images with image names.
-	* A sole image file of each local image.
+	* A composite image file of all local blocks with names.
+	* A sole image file of each local block.
 
 ![compare_result.png](./result/image/compare_result.png)
 
