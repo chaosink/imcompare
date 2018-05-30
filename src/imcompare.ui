@@ -45,8 +45,7 @@
        </sizepolicy>
       </property>
       <property name="text">
-       <string>&lt;div style=&quot;font-size:18px&quot;&gt;&lt;p&gt;Drag in image files directly.&lt;/p&gt;&lt;p&gt;Image tabs can be moved and reordered.&lt;/p&gt;&lt;p&gt;Press key &lt;font style=&quot;color:#f00&quot;&gt;S&lt;/font&gt; to save local comparison results.&lt;/p&gt;&lt;p&gt;Still in developing...&lt;/p&gt;&lt;/div&gt;
-</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18px;&quot;&gt;Drag in image files directly.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18px;&quot;&gt;Image tabs can be moved and reordered.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18px;&quot;&gt;Press key &lt;/span&gt;&lt;span style=&quot; font-size:18px; color:#ff0000;&quot;&gt;A&lt;/span&gt;&lt;span style=&quot; font-size:18px;&quot;&gt; or &lt;/span&gt;&lt;span style=&quot; font-size:18px; color:#ff0000;&quot;&gt;D&lt;/span&gt;&lt;span style=&quot; font-size:18px;&quot;&gt; to switch to left or right.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18px;&quot;&gt;Press key &lt;/span&gt;&lt;span style=&quot; font-size:18px; color:#ff0000;&quot;&gt;1&lt;/span&gt;&lt;span style=&quot; font-size:18px;&quot;&gt;, &lt;/span&gt;&lt;span style=&quot; font-size:18px; color:#ff0000;&quot;&gt;2&lt;/span&gt;&lt;span style=&quot; font-size:18px;&quot;&gt;... to switch to tab &lt;/span&gt;&lt;span style=&quot; font-size:18px; color:#ff0000;&quot;&gt;1&lt;/span&gt;&lt;span style=&quot; font-size:18px;&quot;&gt;, &lt;/span&gt;&lt;span style=&quot; font-size:18px; color:#ff0000;&quot;&gt;2&lt;/span&gt;&lt;span style=&quot; font-size:18px;&quot;&gt;...&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18px;&quot;&gt;Press key &lt;/span&gt;&lt;span style=&quot; font-size:18px; color:#ff0000;&quot;&gt;S&lt;/span&gt;&lt;span style=&quot; font-size:18px;&quot;&gt; to save local comparison results.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18px;&quot;&gt;Still in developing...&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -123,7 +122,7 @@
      <x>0</x>
      <y>0</y>
      <width>522</width>
-     <height>23</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMenu">

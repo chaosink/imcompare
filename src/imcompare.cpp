@@ -42,7 +42,9 @@ void ImCompare::keyPressEvent(QKeyEvent *event) {
 		if(!QFile::exists(file_name)) break;
 	}
 
-	if(event->key() == Qt::Key_S) {
+	if(event->key() == Qt::Key_Escape) {
+			QApplication::quit();
+	} else if(event->key() == Qt::Key_S) {
 		QPixmap result = this->grab();
 		result = result.copy(0, result.height() - ui->imageBlockWidget->height() - 6, (ui->horizontalLayoutOfImageBlockWidget->count() - 1) * (256 + 2) + 4 * 2 - 2 , ui->imageBlockWidget->height() + 6);
 		result.save(file_name + ".png");
@@ -50,6 +52,24 @@ void ImCompare::keyPressEvent(QKeyEvent *event) {
 			ImageBlock *block = dynamic_cast<ImageBlock*>(ui->horizontalLayoutOfImageBlockWidget->itemAt(i)->widget());
 			block->GetPixmap()->save(file_name + "_" + block->GetTitle() + ".png");
 		}
+	} else if(event->key() == Qt::Key_A) {
+		int n = ui->imageTabWidget->count();
+		int c = ui->imageTabWidget->currentIndex();
+//		qInfo() << n << " " << c;
+		if(c == 0) c = n - 1;
+		else c--;
+		ui->imageTabWidget->setCurrentIndex(c);
+	} else if(event->key() == Qt::Key_D) {
+		int n = ui->imageTabWidget->count();
+		int c = ui->imageTabWidget->currentIndex();
+		if(c == n - 1) c = 0;
+		else c++;
+		ui->imageTabWidget->setCurrentIndex(c);
+	} else if(event->key() >= Qt::Key_1 && event->key() <= Qt::Key_9) {
+		int n = ui->imageTabWidget->count();
+		int c = event->key() - Qt::Key_1;
+		if(c < n)
+			ui->imageTabWidget->setCurrentIndex(c);
 	}
 }
 
