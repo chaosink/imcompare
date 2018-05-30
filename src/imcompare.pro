@@ -28,13 +28,18 @@ SOURCES += \
 	imcompare.cpp \
 	mouselabel.cpp \
 	imagetab.cpp \
-	imageblock.cpp
+	imageblock.cpp \
+	ImageIO.cpp
 
 HEADERS += \
 	imcompare.h \
 	mouselabel.h \
 	imagetab.h \
-	imageblock.h
+	imageblock.h \
+	ImageIO.hpp
+
+INCLUDEPATH += \
+	thirdparty
 
 FORMS += \
 	imcompare.ui

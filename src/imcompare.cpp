@@ -1,11 +1,12 @@
 #include "imcompare.h"
 #include "ui_imcompare.h"
 #include "mouselabel.h"
-#include <cassert>
 #include <QMimeData>
 #include <QDebug>
 #include <QDateTime>
 #include <QFileInfo>
+
+#include "ImageIO.hpp"
 
 ImCompare::ImCompare(QWidget *parent) : QMainWindow(parent), ui(new Ui::ImCompare) {
 	ui->setupUi(this);
@@ -100,7 +101,27 @@ void ImCompare::dropEvent(QDropEvent *event) {
 	foreach(QUrl url, urls) {
 		QString file_name = url.toLocalFile();
 		QImage *image = new QImage(file_name);
-		if(image->isNull()) continue;
+		if(image->isNull()) {
+			int width, height;
+			if(file_name.endsWith("exr")) {
+				std::unique_ptr<float[]> data =
+					ImageIO::LoadEXR(file_name.toStdString(), width, height);
+				image = new QImage(width, height, QImage::Format_RGB32);
+				for(int i = 0; i < height; i++) {
+					uchar *scanline = image->scanLine(i);
+					for(int j = 0; j < width; j++) {
+						int offset = (i * width + j) * 4;
+						uchar r = pow(qBound(0.f, data[offset + 0], 1.f), 1.f/2.2f) * 255;
+						uchar g = pow(qBound(0.f, data[offset + 1], 1.f), 1.f/2.2f) * 255;
+						uchar b = pow(qBound(0.f, data[offset + 2], 1.f), 1.f/2.2f) * 255;
+						*(reinterpret_cast<QRgb*>(scanline)) = qRgb(r, g, b);
+						scanline += 4;
+					}
+				}
+			} else {
+				continue;
+			}
+		}
 		AddImageBlock();
 		AddImageTab(QFileInfo(file_name).baseName(), image);
 	}
