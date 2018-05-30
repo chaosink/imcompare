@@ -1,0 +1,3 @@
+[submodule "src/thirdparty/tinyexr"]
+	path = src/thirdparty/tinyexr
+	url = https://github.com/syoyo/tinyexr
