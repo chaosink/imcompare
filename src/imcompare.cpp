@@ -43,7 +43,7 @@ void ImCompare::keyPressEvent(QKeyEvent *event) {
 	}
 
 	if(event->key() == Qt::Key_Escape) {
-			QApplication::quit();
+		QApplication::quit();
 	} else if(event->key() == Qt::Key_S) {
 		QPixmap result = this->grab();
 		result = result.copy(0, result.height() - ui->imageBlockWidget->height() - 6, (ui->horizontalLayoutOfImageBlockWidget->count() - 1) * (256 + 2) + 4 * 2 - 2 , ui->imageBlockWidget->height() + 6);
