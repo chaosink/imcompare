@@ -14,14 +14,11 @@ Compare images locally.
 
 ![compare.png](./result/image/compare.png)
 
-* Press key `S` to save local comparison results.
-	* A composite image file of all local blocks with names.
-	* A sole image file of each local block.
-
-![compare_result.png](./result/image/compare_result.png)
-
-![input.png](./result/image/input.png)
-
-![reference.png](./result/image/reference.png)
+* Press key `S` to save local comparison results:
+  * A composite image file of all local blocks with names.
+    <br/>![compare_result.png](./result/image/compare_result.png)
+  * A sole image file of each local block.
+    <br/>![input.png](./result/image/input.png)
+    <br/>![reference.png](./result/image/reference.png)
 
 * Still in developing...
