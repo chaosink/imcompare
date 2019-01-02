@@ -2,7 +2,9 @@
 
 Compare images locally.
 
-- - -
+Still in developing...
+
+# Usage
 
 ![1](./result/video/video.gif)
 
@@ -21,4 +23,16 @@ Compare images locally.
     <br/>![input.png](./result/image/input.png)
     <br/>![reference.png](./result/image/reference.png)
 
-* Still in developing...
+# Build
+
+* Clone the repository with the `--recursive` flag to get all the dependencies:
+```bash
+$ git clone --recursive https://github.com/chaosink/imcompare.git
+```
+
+* Or use `git submodule` to get all the dependencies after cloning the repository:
+```bash
+$ git submodule update --init --recursive
+```
+
+* Then use Qt Creator to open `src/imcompare.pro` and build.
