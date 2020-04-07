@@ -5,6 +5,8 @@
 #include <QDebug>
 #include <QDateTime>
 #include <QFileInfo>
+#include <QtMath>
+#include <QTabBar>
 
 #include "ImageIO.hpp"
 
@@ -131,9 +133,9 @@ void ImCompare::dropEvent(QDropEvent *event) {
 					uchar *scanline = image->scanLine(i);
 					for(int j = 0; j < width; j++) {
 						int offset = (i * width + j) * 4;
-						uchar r = pow(qBound(0.f, data[offset + 0], 1.f), 1.f/2.2f) * 255;
-						uchar g = pow(qBound(0.f, data[offset + 1], 1.f), 1.f/2.2f) * 255;
-						uchar b = pow(qBound(0.f, data[offset + 2], 1.f), 1.f/2.2f) * 255;
+						uchar r = qPow(qBound(0.f, data[offset + 0], 1.f), 1.f/2.2f) * 255;
+						uchar g = qPow(qBound(0.f, data[offset + 1], 1.f), 1.f/2.2f) * 255;
+						uchar b = qPow(qBound(0.f, data[offset + 2], 1.f), 1.f/2.2f) * 255;
 						*(reinterpret_cast<QRgb*>(scanline)) = qRgb(r, g, b);
 						scanline += 4;
 					}
